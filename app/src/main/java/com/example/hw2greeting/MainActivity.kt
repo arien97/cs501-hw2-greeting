@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -58,17 +59,20 @@ fun Greeting(modifier: Modifier = Modifier) {
             val time = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
 
             if (textValue.isNotEmpty()) {
-                Text(text = "Hello, $textValue!", modifier = Modifier.padding(16.dp))
-                val hour = time.substring(0, 2).toInt()
-                if (6 <= hour && hour < 12) {
-                    Text(text = "Good morning!", modifier = Modifier.padding(16.dp))
-                } else if (12 <= hour && hour < 18) {
-                    Text(text = "Good afternoon!", modifier = Modifier.padding(16.dp))
-                } else if (18 <= hour && hour < 24){
-                    Text(text = "Good evening!", modifier = Modifier.padding(16.dp))
-                } else {
-                    Text(text = "Good night!", modifier = Modifier.padding(16.dp))
+                Row(modifier = Modifier.padding(16.dp)) {
+                    Text(text = "Hello, $textValue! ")
+                    val hour = time.substring(0, 2).toInt()
+                    if (hour in 6..11) {
+                        Text(text = "Good morning. ")
+                    } else if (hour in 12..17) {
+                        Text(text = "Good afternoon. ")
+                    } else if (hour in 18..23){
+                        Text(text = "Good evening. ", modifier = Modifier.padding(16.dp))
+                    } else {
+                        Text(text = "Good night. ", modifier = Modifier.padding(16.dp))
+                    }
                 }
+
             }
         }
 
